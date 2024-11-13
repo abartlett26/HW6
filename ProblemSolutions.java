@@ -64,31 +64,23 @@ public class ProblemSolutions {
      */
 
   public static int lastBoulder(int[] boulders) {
-    while (boulders.length > 1) {
-        Arrays.sort(boulders);
-        int heaviestLoc = boulders.length - 1;
-        int nextHeavyLoc = boulders.length - 2;
-        int newWeight = boulders[heaviestLoc] - boulders[nextHeavyLoc];
-        if (newWeight == 0) {
-            if (boulders.length == 2) {
-                return 0;
-            } else {
-                int[] newBoulders = new int[boulders.length - 2];
-                for (int i = 0; i < newBoulders.length; i++) {
-                    newBoulders[i] = boulders[i];
-                }
-                boulders = newBoulders;
-            }
-        } else {
-            int[] newBoulders = new int[boulders.length - 1];
-            for (int i = 0; i < newBoulders.length; i++) {
-                newBoulders[i] = boulders[i];
-            }
-            newBoulders[newBoulders.length - 1] = newWeight;
-            boulders = newBoulders;
+    PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+    for (int boulder : boulders) {
+        pq.add(boulder);
+    }
+    while (pq.size() > 1) {
+        int heaviest = pq.poll();
+        int secHeaviest = pq.poll();
+            
+        if (heaviest != secHeaviest) {
+            pq.add(heaviest - secHeaviest);
         }
     }
-      return boulders[0];
+    if (pq.isEmpty()) {
+        return 0;
+    } else {
+        return pq.peek();
+    }
   }
 
 
