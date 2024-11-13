@@ -150,8 +150,11 @@ class PriorityQueue<E, P> {
      */
 
     public Node add(E e, P priority) {
+        // new node with element, priortiy, and index
         Node newNode = new Node(e, priority, tree.size());
+        // add to end of array list
         tree.add(newNode);
+        // use pullup to put in order
         pullUp(newNode.idx);
         return newNode;
     }
@@ -168,7 +171,9 @@ class PriorityQueue<E, P> {
      */
 
     public boolean contains(E e) {
+        // look at all the nodes
         for (Node node : tree) {
+            // if current matches the element and is valid, true
             if (node.value().equals(e) && node.isValid()) {
                 return true;
             }
