@@ -64,11 +64,31 @@ public class ProblemSolutions {
      */
 
   public static int lastBoulder(int[] boulders) {
-
-      //
-      // ADD YOUR CODE HERE - DO NOT FORGET TO ADD YOUR NAME / SECTION # ABOVE
-      //
-      return -1;
+    while (boulders.length > 1) {
+        Arrays.sort(boulders);
+        int heaviestLoc = boulders.length - 1;
+        int nextHeavyLoc = boulders.length - 2;
+        int newWeight = boulders[heaviestLoc] - boulders[nextHeavyLoc];
+        if (newWeight == 0) {
+            if (boulders.length == 2) {
+                return 0;
+            } else {
+                int[] newBoulders = new int[boulders.length - 2];
+                for (int i = 0; i < newBoulders.length; i++) {
+                    newBoulders[i] = boulders[i];
+                }
+                boulders = newBoulders;
+            }
+        } else {
+            int[] newBoulders = new int[boulders.length - 1];
+            for (int i = 0; i < newBoulders.length; i++) {
+                newBoulders[i] = boulders[i];
+            }
+            newBoulders[newBoulders.length - 1] = newWeight;
+            boulders = newBoulders;
+        }
+    }
+      return boulders[0];
   }
 
 
@@ -90,12 +110,19 @@ public class ProblemSolutions {
      */
 
     public static ArrayList<String> showDuplicates(ArrayList<String> input) {
-
-        //
-        //  YOUR CODE GOES HERE
-        //
-        return new ArrayList<>();  // Make sure result is sorted in ascending order
-
+        ArrayList<String> dupes = new ArrayList<>();
+        for (int i = 0; i < input.size() - 1; i++) {
+            for (int j = i + 1; j < input.size(); j++) {
+                if (input.get(i).equals(input.get(j))) {
+                    if (!dupes.contains(input.get(i))) {
+                        dupes.add(input.get(i));
+                    }
+                    break; 
+                }
+            }
+        }
+        Collections.sort(dupes);
+        return dupes;
     }
 
 
@@ -130,10 +157,21 @@ public class ProblemSolutions {
      */
 
     public static ArrayList<String> pair(int[] input, int k) {
+        ArrayList<String> pairs = new ArrayList<>();
+        for (int i = 0; i < input.length; i++) {
+            for (int j = 0; j < input.length; j++) {
+                int num1 = input[i];
+                int num2 = input[j];
+                if (num1 + num2 == k) {
+                    String valid = "(" + Math.min(num1, num2) + ", " + Math.max(num1, num2) + ")";
+                    if (!pairs.contains(valid)) {
+                        pairs.add(valid);
+                    }
+                }
+            }
 
-        //
-        //  YOUR CODE GOES HERE
-        //
-        return new ArrayList<>();  // Make sure returned lists is sorted as indicated above
+        }
+        Collections.sort(pairs);
+        return pairs;
     }
 }
