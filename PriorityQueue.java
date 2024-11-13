@@ -1,7 +1,7 @@
 
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   ANNIKA BARTLETT / 002
  *
  *   Note, additional comments provided throughout this source code
  *   is for educational purposes
