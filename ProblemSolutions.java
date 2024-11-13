@@ -65,19 +65,25 @@ public class ProblemSolutions {
 
   public static int lastBoulder(int[] boulders) {
     PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+    // add all weights into priorty queue
     for (int boulder : boulders) {
         pq.add(boulder);
     }
+    // while there are one or no boulders
     while (pq.size() > 1) {
         int heaviest = pq.poll();
         int secHeaviest = pq.poll();
-            
+
+        // if will not cancel each other out, add difference back into queue
         if (heaviest != secHeaviest) {
             pq.add(heaviest - secHeaviest);
         }
+        // if zero, do nothing
     }
+    // if none are left, return zero
     if (pq.isEmpty()) {
         return 0;
+    // otherwise return remaining
     } else {
         return pq.peek();
     }
@@ -103,16 +109,22 @@ public class ProblemSolutions {
 
     public static ArrayList<String> showDuplicates(ArrayList<String> input) {
         ArrayList<String> dupes = new ArrayList<>();
+        // check one animal
         for (int i = 0; i < input.size() - 1; i++) {
+            // check that animal with all the others
             for (int j = i + 1; j < input.size(); j++) {
+                // if the same animal
                 if (input.get(i).equals(input.get(j))) {
+                    // if the array list doesn't already contain, add
                     if (!dupes.contains(input.get(i))) {
                         dupes.add(input.get(i));
                     }
+                    // if already contains, break
                     break; 
                 }
             }
         }
+        // make alphabetical
         Collections.sort(dupes);
         return dupes;
     }
@@ -150,12 +162,17 @@ public class ProblemSolutions {
 
     public static ArrayList<String> pair(int[] input, int k) {
         ArrayList<String> pairs = new ArrayList<>();
+        // for all of one number
         for (int i = 0; i < input.length; i++) {
+            // compare to the others
             for (int j = 0; j < input.length; j++) {
                 int num1 = input[i];
                 int num2 = input[j];
+                // if sum is k
                 if (num1 + num2 == k) {
+                    // make the (x, y) string
                     String valid = "(" + Math.min(num1, num2) + ", " + Math.max(num1, num2) + ")";
+                    // if not already in the array list, add
                     if (!pairs.contains(valid)) {
                         pairs.add(valid);
                     }
@@ -163,6 +180,7 @@ public class ProblemSolutions {
             }
 
         }
+        // sort
         Collections.sort(pairs);
         return pairs;
     }
